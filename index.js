@@ -26,6 +26,9 @@ nasus.stdout.on('data', function(data) {
     newTweet.stdout.on('data', function(nasusData) {
       console.log(nasusData);
     });
+    newTweet.stderr.on('data', function(data) {
+      console.log(data);
+    });
 });
 nasus.stdout.on('exit', function(data) {
   console.log(data);
