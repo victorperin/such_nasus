@@ -14,9 +14,9 @@ var nasus_quotes = [
 
 
 
-var child = exec('tweet stream "nasus" --json');
+var nasus = exec('tweet stream "nasus" --json');
 console.log("Reading 'nasus' tweets");
-child.stdout.on('data', function(data) {
+nasus.stdout.on('data', function(data) {
     var dados = JSON.parse(data);
     console.log("@"+dados.user.screen_name+": "+dados.text);
     var textoAleatorio = textos[Math.floor(Math.random()*textos.length)];
@@ -27,6 +27,13 @@ child.stdout.on('data', function(data) {
       console.log(nasusData);
     });
 });
+nasus.stdout.on('exit', function(data) {
+  console.log(data);
+});
+nasus.stderr.on('data', function(data) {
+  console.log(data);
+});
+
 
 var reply = exec('tweet stream "@such_nasus" --json');
 console.log("Reading '@such_nasus' tweets");
@@ -43,4 +50,10 @@ reply.stdout.on('data', function(data) {
     newTweet.stderr.on('data', function(nasusData) {
       console.log(nasusData);
     });
+});
+reply.stdout.on('exit', function(data) {
+  console.log(data);
+});
+reply.stderr.on('data', function(data) {
+  console.log(data);
 });
