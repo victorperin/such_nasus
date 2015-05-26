@@ -30,8 +30,9 @@ nasus.stdout.on('data', function(data) {
       console.log(data);
     });
 });
-nasus.stdout.on('exit', function(data) {
-  console.log("stream 'nasus': "+data);
+nasus.on('close', function(code) {
+  console.log("stream 'nasus': "+code);
+  process.exit();
 });
 nasus.stderr.on('data', function(data) {
   console.log("stream 'nasus': "+data);
@@ -54,8 +55,9 @@ reply.stdout.on('data', function(data) {
       console.log(nasusData);
     });
 });
-reply.stdout.on('exit', function(data) {
-  console.log("stream '@such_nasus': "+data);
+reply.on('close', function(code) {
+  console.log("stream '@such_nasus': "+code);
+  process.exit();
 });
 reply.stderr.on('data', function(data) {
   console.log("stream '@such_nasus': "+data);
