@@ -15,50 +15,62 @@ var nasus_quotes = [
 
 
 var nasus = exec('tweet stream "nasus" --json');
-console.log("Reading 'nasus' tweets");
+showScreen("Reading 'nasus' tweets");
 nasus.stdout.on('data', function(data) {
     var dados = JSON.parse(data);
-    console.log("@"+dados.user.screen_name+": "+dados.text);
+    showScreen("@"+dados.user.screen_name+": "+dados.text);
     var textoAleatorio = textos[Math.floor(Math.random()*textos.length)];
     var comando = 'tweet new "@'+dados.user.screen_name+' '+textoAleatorio+'"';
     var newTweet = exec(comando);
-    console.log(comando);
+    showScreen(comando);
     newTweet.stdout.on('data', function(nasusData) {
-      console.log(nasusData);
+      showScreen(nasusData);
     });
     newTweet.stderr.on('data', function(data) {
-      console.log(data);
+      showScreen(data);
     });
 });
 nasus.on('close', function(code) {
-  console.log("stream 'nasus': "+code);
+  showScreen("stream 'nasus': "+code);
+  if(code=="Parsing error:Easy there, Turbo. Too many requests recently. Enhance your calm."){
+    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+  }
   process.exit();
 });
 nasus.stderr.on('data', function(data) {
-  console.log("stream 'nasus': "+data);
+  showScreen("stream 'nasus': "+data);
 });
 
 
 var reply = exec('tweet stream "@such_nasus" --json');
-console.log("Reading '@such_nasus' tweets");
+showScreen("Reading '@such_nasus' tweets");
 reply.stdout.on('data', function(data) {
     var dados = JSON.parse(data);
-    console.log("@"+dados.user.screen_name+": "+dados.text);
+    showScreen("@"+dados.user.screen_name+": "+dados.text);
     var quoteAleatorio = nasus_quotes[Math.floor(Math.random()*nasus_quotes.length)];
     var comando = 'tweet new "@'+dados.user.screen_name+' '+quoteAleatorio+'"';
     var newTweet = exec(comando);
-    console.log(comando);
+    showScreen(comando);
     newTweet.stdout.on('data', function(nasusData) {
-      console.log(nasusData);
+      showScreen(nasusData);
     });
     newTweet.stderr.on('data', function(nasusData) {
-      console.log(nasusData);
+      showScreen(nasusData);
     });
 });
 reply.on('close', function(code) {
-  console.log("stream '@such_nasus': "+code);
+  showScreen("stream '@such_nasus': "+code);
+  if(code=="Parsing error:Easy there, Turbo. Too many requests recently. Enhance your calm."){
+    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+  }
   process.exit();
 });
 reply.stderr.on('data', function(data) {
-  console.log("stream '@such_nasus': "+data);
+  showScreen("stream '@such_nasus': "+data);
 });
+
+function showScreen(text){
+  var date = new Date();
+  var current_time = date.getHours()+":"+date.getMinutes()+":"+date.getSeconds();
+  console.log(current_time+"- "+text);
+}
