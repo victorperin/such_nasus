@@ -33,7 +33,7 @@ setTimeout(function(){
 	});
 	nasus.on('close', function(code) {
 	  showScreen("stream 'nasus': "+code);
-	  if(code=="Parsing error:Easy there, Turbo. Too many requests recently. Enhance your calm."){
+	  if(code.includes("Too many requests"){
 	    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
 	  }
 	  process.exit();
