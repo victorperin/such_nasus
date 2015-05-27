@@ -9,38 +9,39 @@ var nasus_quotes = [
 "Do not try my patience.",
 "Life is part of a cycle. Yours is over.",
 "Your soul will be measured.",
-"Return to the dust."
+"Return to the dust.",
+"The cycle of stack and farm continues. We will Q, they will die."
 ];
 
 
-
-var nasus = exec('tweet stream "nasus" --json');
-showScreen("Reading 'nasus' tweets");
-nasus.stdout.on('data', function(data) {
-    var dados = JSON.parse(data);
-    showScreen("@"+dados.user.screen_name+": "+dados.text);
-    var textoAleatorio = textos[Math.floor(Math.random()*textos.length)];
-    var comando = 'tweet new "@'+dados.user.screen_name+' '+textoAleatorio+'"';
-    var newTweet = exec(comando);
-    showScreen(comando);
-    newTweet.stdout.on('data', function(nasusData) {
-      showScreen(nasusData);
-    });
-    newTweet.stderr.on('data', function(data) {
-      showScreen(data);
-    });
-});
-nasus.on('close', function(code) {
-  showScreen("stream 'nasus': "+code);
-  if(code=="Parsing error:Easy there, Turbo. Too many requests recently. Enhance your calm."){
-    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
-  }
-  process.exit();
-});
-nasus.stderr.on('data', function(data) {
-  showScreen("stream 'nasus': "+data);
-});
-
+setTimeout(function(){
+	var nasus = exec('tweet stream "nasus" --json');
+	showScreen("Reading 'nasus' tweets");
+	nasus.stdout.on('data', function(data) {
+	    var dados = JSON.parse(data);
+	    showScreen("@"+dados.user.screen_name+": "+dados.text);
+	    var textoAleatorio = textos[Math.floor(Math.random()*textos.length)];
+	    var comando = 'tweet new "@'+dados.user.screen_name+' '+textoAleatorio+'"';
+	    var newTweet = exec(comando);
+	    showScreen(comando);
+	    newTweet.stdout.on('data', function(nasusData) {
+	      showScreen(nasusData);
+	    });
+	    newTweet.stderr.on('data', function(data) {
+	      showScreen(data);
+	    });
+	});
+	nasus.on('close', function(code) {
+	  showScreen("stream 'nasus': "+code);
+	  if(code=="Parsing error:Easy there, Turbo. Too many requests recently. Enhance your calm."){
+	    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+	  }
+	  process.exit();
+	});
+	nasus.stderr.on('data', function(data) {
+	  showScreen("stream 'nasus': "+data);
+	});
+}, 3000);
 
 var reply = exec('tweet stream "@such_nasus" --json');
 showScreen("Reading '@such_nasus' tweets");
