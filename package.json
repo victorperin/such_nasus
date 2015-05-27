@@ -1,0 +1,20 @@
+{
+  "name": "such_nasus",
+  "version": "0.0.3",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "string": "^3.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://victor_perin@bitbucket.org/victor_perin/such_nasus.git"
+  },
+  "author": "Victor Perin",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/victor_perin/such_nasus#readme"
+}
