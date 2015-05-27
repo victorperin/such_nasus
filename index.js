@@ -11,7 +11,7 @@ var nasus_quotes = [
 "Life is part of a cycle. Yours is over.",
 "Your soul will be measured.",
 "Return to the dust.",
-"The cycle of stack and farm continues. We will Q, they will die."
+"The cycle of stack and farm continues. We will Q, they will die... Oh, wait..."
 ];
 
 
