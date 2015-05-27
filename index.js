@@ -1,4 +1,5 @@
 var exec = require('child_process').exec;
+var S = require('string');
 
 var textos = ["q?","Q?"];
 var nasus_quotes = [
@@ -33,13 +34,17 @@ setTimeout(function(){
 	});
 	nasus.on('close', function(code) {
 	  showScreen("stream 'nasus': "+code);
-	  if(code.includes("many requests")){
+	  if(S(code).contains("many requests")){
 	    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
 	  }
 	  process.exit();
 	});
 	nasus.stderr.on('data', function(data) {
 	  showScreen("stream 'nasus': "+data);
+          if(S(data).contains("many requests")){
+            setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+          }
+	  process.exit();
 	});
 }, 3000);
 
@@ -61,13 +66,17 @@ reply.stdout.on('data', function(data) {
 });
 reply.on('close', function(code) {
   showScreen("stream '@such_nasus': "+code);
-  if(code.includes("many requests")){
+  if(S(code).contains("many requests")){
     setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
   }
   process.exit();
 });
 reply.stderr.on('data', function(data) {
   showScreen("stream '@such_nasus': "+data);
+  if(S(data).contains("many requests")){
+     setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+  }
+  process.exit();
 });
 
 function showScreen(text){
