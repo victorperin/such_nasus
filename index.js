@@ -1,6 +1,8 @@
 var exec = require('child_process').exec;
 var S = require('string');
 
+var streamTimeout= 10000;
+
 var textos = ["q?","Q?"];
 var nasus_quotes = [
 "Who let the dogs out? Woof. Woof. Woof.",
@@ -35,19 +37,20 @@ setTimeout(function(){
 	nasus.on('close', function(code) {
 	  showScreen("stream 'nasus': "+code);
 	  if(S(code).contains("many requests")){
-	    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+	    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, streamTimeout);
 	  }
 	  process.exit();
 	});
 	nasus.stderr.on('data', function(data) {
 	  showScreen("stream 'nasus': "+data);
           if(S(data).contains("many requests")){
-            setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+            setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, streamTimeout);
           }
 	  process.exit();
 	});
-}, 3000);
+}, streamTimeout);
 
+setTimeout(function(){
 var reply = exec('tweet stream "@such_nasus" --json');
 showScreen("Reading '@such_nasus' tweets");
 reply.stdout.on('data', function(data) {
@@ -67,17 +70,18 @@ reply.stdout.on('data', function(data) {
 reply.on('close', function(code) {
   showScreen("stream '@such_nasus': "+code);
   if(S(code).contains("many requests")){
-    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+    setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, streamTimeout*3);
   }
   process.exit();
 });
 reply.stderr.on('data', function(data) {
   showScreen("stream '@such_nasus': "+data);
   if(S(data).contains("many requests")){
-     setTimeout(function() {showScreen('Waiting twitter for a calm down...');}, 30000);
+     setTimeout(function() {showScreen('Waiting twitter for a calm down...');process.exit();}, streamTimeout*3);
   }
-  process.exit();
+
 });
+}, streamTimeout*2);
 
 function showScreen(text){
   var date = new Date();
