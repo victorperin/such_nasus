@@ -12,9 +12,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://victor_perin@bitbucket.org/victor_perin/such_nasus.git"
+    "url": "https://github.com/victorperin/such_nasus.git"
   },
   "author": "Victor Perin",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/victor_perin/such_nasus#readme"
+  "homepage": "https://github.com/victorperin/such_nasus.git"
 }
