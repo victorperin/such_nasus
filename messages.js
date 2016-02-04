@@ -1,6 +1,7 @@
 var others = [
   'q?',
-  'Q?'
+  'Q?',
+  "The cycle of stack and farm continues. We will Q, they will die... Oh, wait..."
 ];
 
 var infernal = {
@@ -56,8 +57,7 @@ var classic = {
     "I walk through the ages.",
     "Shurima is not of this time.",
     "Errant words may fell empires.",
-    "The past is a tapestry of what lies ahead.",
-    'The cycle of stack and farm continues. We will Q, they will die... Oh, wait...'
+    "The past is a tapestry of what lies ahead."
   ],
   jokes: [
     "Who let the dogs out? Woof. Woof. Woof.",
