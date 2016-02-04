@@ -19,7 +19,6 @@ exports.stream = function (word, callback){
   client.stream('statuses/filter', {track: word}, function(stream) {
     stream.on('data', function(tweet) {
       callback(undefined, tweet);
-      console.log(tweet.user.screen_name+':',tweet.text);
     });
 
     stream.on('error', function(error) {
@@ -27,3 +26,11 @@ exports.stream = function (word, callback){
     });
   });
 }
+
+exports.tweet = function (status, callback){
+  client.post('statuses/update', {status: status},  function(error, tweet, response){
+    if(error)
+      return callback(error,undefined);
+    return callback(undefined,tweet);
+  });
+};
