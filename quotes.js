@@ -80,3 +80,10 @@ var classic = {
     "Eternity is beyond your reach."
   ]
 };
+
+module.exports = function () {
+  var classicArr = classic.movement.concat(classic.jokes).concat(classic.attacking);
+  var infernalArr = infernal.movement.concat(infernal.jokes).concat(infernal.attacking);
+
+  return others.concat(classicArr).concat(infernalArr);
+}();
